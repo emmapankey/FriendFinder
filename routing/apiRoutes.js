@@ -1,6 +1,6 @@
 // LOAD DATA
 // Link routes to the friend data array
-var friendsData = require("../app/data/friends");
+var friendsData = require("../data/friends");
 // console.log(friendsData);
 
 // Routes

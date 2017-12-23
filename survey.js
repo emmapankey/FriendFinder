@@ -46,7 +46,51 @@ $('.sel__box__options').click(function () {
 });
 
 /* ===== Logic for friend matching ===== */
-    // Capture form inputs 
-    $("#submit").on("click", function(){
+// Capture form inputs
+$(document).ready(function () {
+
+    $("#submit").on("click", function () {
+
+        function validateForm() {
+            var isValid = true;
+            $(".form-control").each(function() {
+                if ($(this).val() === "") {
+                    isValid = false;
+                }
+            });
+
+            $(".question").each(function() {
+                if ($(this).val() === "") {
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        }
+
+        if (validateForm() == true) {
+            // Create an object to hold the user data
+            var userData = {
+                name: $("#name").val(),
+                photo: $("#photo").val(),
+                scores: [$("#q1").val(),$("#q2").val(),$("#q3").val(),$("#q4").val(),$("#q5").val(),$("#q6").val(),$("#q7").val(),$("#q8").val(),$("#q9").val(),$("#q10").val(),]
+              };
+        }
+
+        var currentURL = window.location.origin;
+
+        // Post the user data object to /api/friends
+        $.post(currentURL + "/api/friends", userData, function(response) {
+
+            // Add the name and photo from the response to the modal for the best match
+            $("#matchName").text(response.name);
+            $("#matchPhoto").attr("src", data.photo);
+
+            
+            // Show the modal with the best match 
+            $("#resultModal").modal('toggle');
+        });
 
     });
+}) 
+

@@ -20,6 +20,7 @@ module.exports = function (app) {
     var postedScores = userData.scores;
     // console.log(postedScores);
 
+
     // Will hold the scores result after comparison of the user's scores to the existing friends array
     var matchedScoresArray = [];
 
@@ -50,5 +51,6 @@ module.exports = function (app) {
 
       // res.json(friendsData[match]);
     }
+
   });
 };

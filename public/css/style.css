@@ -52,61 +52,6 @@ background-color: #EF8354;
 color: #EF8354;
 }
 
-<style>
-/* GENERAL */
-body {
-background-color: #BFC0C0;
-}
-
-.jumbotron {
-background-color: #FFFFFF;
-margin-top: 30px;
-}
-
-#surveyJumbotron {
-text-align: center;
-}
-
-/* TEXT */
-#mainTitle {
-color: #2D3142;
-}
-
-.message {
-color: #EF8354;
-}
-
-.surveyButtonText {
-color: white;
-}
-
-.footerLinks {
-color: #4F5D75;
-font-weight: bold;
-}
-
-h3 {
-color: #4F5D75;
-}
-
-h4 {
-color: #2D3142;
-}
-
-/* BUTTONS */
-#surveyButton {
-background-color: #4F5D75;
-}
-
-#submit {
-background-color: #EF8354;
-}
-
-/* FORM */
-#name, #photo {
-color: #EF8354;
-}
-
 /* FORM */
 /* HORIZONTAL RULE*/
 .rule {
@@ -246,15 +191,4 @@ opacity: 1;
 to {
 opacity: 0;
 }
-}
-
-/* MODAL */
-#resultModal {
-display: show;
-}
-</style>
-
-/* MODAL */
-#resultModal {
-display: show;
 }

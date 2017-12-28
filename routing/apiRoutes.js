@@ -18,39 +18,36 @@ module.exports = function (app) {
     // console.log(userData);
 
     var postedScores = userData.scores;
-    // console.log(postedScores);
+    console.log(postedScores);
 
-
-    // Will hold the scores result after comparison of the user's scores to the existing friends array
-    var matchedScoresArray = [];
-
-    var match = 0;
-
+    // Initialize to 0
     var questionDifference = 0;
+    // Will hold all the friend scores to be compared
+    var comparedScoresArray = [];
 
-    // Iterate through the friend objects contained within friends data array
+    // Iterate through the friends data array (all the friends)
     for (var i = 0; i < friendsData.length; i++) {
       var comparedFriendScores = friendsData[i].scores;
 
-      // Iterate through the user scores and compare to each friend object scores
-      for (var j = 0; j < postedScores.length; j++) {
-        // console.log(questionDifference);
-        questionDifference = Math.abs(parseInt(comparedFriendScores[j]) - parseInt(postedScores[j]));
+      // Iterate through the scores from individual friend objects
+      for (var j = 0; j < comparedFriendScores.length; j++) {
+        // Here the user scores are converted back to integers
+        // The absolute value of the friend and user scores are compared and the differences are stored
+        questionDifference =  Math.abs(parseInt(comparedFriendScores[j]) - parseInt(postedScores[j]));
       }
 
-      matchedScoresArray.push(questionDifference);
-      console.log(matchedScoresArray);
-
-      // for (var i = 0; i < matchedScoresArray.length; i++) {
-      //   if (matchedScoresArray[i] <= matchedScoresArray[match]) {
-      //     match = i;
-      //   }
-      // }
-
-      friendsData.push(req.body);
-
-      // res.json(friendsData[match]);
+      // Question differences between the user and each friend being compared are pushed to an array
+      comparedScoresArray.push(questionDifference);
+      questionDifference = 0;
     }
+
+    // The best friend match has the minimum score difference
+    var bestMatch = friendsData[comparedScoresArray.indexOf(Math.min.apply(null, comparedScoresArray))];
+
+    // Send the best matched friend to the client
+    res.send(bestMatch);
+
+    friendsData.push(req.body);
 
   });
 };

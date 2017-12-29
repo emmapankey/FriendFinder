@@ -50,8 +50,6 @@
             </select>
         </div>
 
-        <hr class="rule">
-
         <h3><strong>Question 2</strong></h3>
         <h4>If you were lost in a forrest you could survive by foraging for food.</h4>
         <div class="sel sel--question">
@@ -64,8 +62,6 @@
                   <option value="5">5 (Strongly Agree)</option>
             </select>
         </div>
-
-        <hr class="rule">
 
         <h3><strong>Question 3</strong></h3>
         <h4>Vegetarian options need to be on the menu.</h4>
@@ -80,8 +76,6 @@
             </select>
         </div>
 
-        <hr class="rule">
-
         <h3><strong>Question 4</strong></h3>
         <h4>When you travel you go for comfort and pack lightly.</h4>
         <div class="sel sel--question">
@@ -94,8 +88,6 @@
                   <option value="5">5 (Strongly Agree)</option>
             </select>
         </div>
-
-        <hr class="rule">
 
         <h3><strong>Question 5</strong></h3>
         <h4>You would rather risk phsyical harm than miss out on a thrilling opportunity.</h4>
@@ -110,8 +102,6 @@
             </select>
         </div>
 
-        <hr class="rule">
-
         <h3><strong>Question 6</strong></h3>
         <h4>You are often late for work or appointments.</h4>
         <div class="sel sel--question">
@@ -124,8 +114,6 @@
                   <option value="5">5 (Strongly Agree)</option>
             </select>
         </div>
-
-        <hr class="rule">
 
         <h3><strong>Question 7</strong></h3>
         <h4>You are interested in many different subjects but never get deeply involved.</h4>
@@ -140,8 +128,6 @@
             </select>
         </div>
 
-        <hr class="rule">
-
         <h3><strong>Question 8</strong></h3>
         <h4>You are great at buying gifts for other people.</h4>
         <div class="sel sel--question">
@@ -154,8 +140,6 @@
                   <option value="5">5 (Strongly Agree)</option>
             </select>
         </div>
-
-        <hr class="rule">
 
         <h3><strong>Question 9</strong></h3>
         <h4>You have a large friend group with sporadic contact.</h4>
@@ -170,8 +154,6 @@
             </select>
         </div>
 
-        <hr class="rule">
-
         <h3><strong>Question 10</strong></h3>
         <h4>At a social gathering you are one of the first to leave.</h4>
         <div class="sel sel--question">
@@ -184,8 +166,6 @@
                   <option value="5">5 (Strongly Agree)</option>
             </select>
         </div>
-
-        <hr class="rule">
 
         <br>
         <br>
@@ -227,56 +207,45 @@
         /* ===== Logic for creating select boxes on survey page ===== */
         // $('.sel').each(function () {
         //     $(this).children('select').css('display', 'none');
-
         //     var $current = $(this);
-
         //     $(this).find('option').each(function (i) {
         //         if (i == 0) {
         //             $current.prepend($('<div>', {
         //                 class: $current.attr('class').replace(/sel/g, 'sel__box')
         //             }));
-
         //             var placeholder = $(this).text();
         //             $current.prepend($('<span>', {
         //                 class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
         //                 text: placeholder,
         //                 'data-placeholder': placeholder
         //             }));
-
         //             return;
         //         }
-
         //         $current.children('div').append($('<span>', {
         //             class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
         //             text: $(this).text()
         //         }));
         //     });
         // });
-
         // // Toggling the `.active` state on the `.sel`.
         // $('.sel').click(function () {
         //     $(this).toggleClass('active');
         // });
-
         // // Toggling the `.selected` state on the options.
         // $('.sel__box__options').click(function () {
         //     var txt = $(this).text();
         //     var index = $(this).index();
-
         //     $(this).siblings('.sel__box__options').removeClass('selected');
         //     $(this).addClass('selected');
-
         //     var $currentSel = $(this).closest('.sel');
         //     $currentSel.children('.sel__placeholder').text(txt);
         //     $currentSel.children('select').prop('selectedIndex', index + 1);
         // });
-
         /* ===== Logic for friend matching ===== */
         // Capture form inputs
         $("#submit").on("click", function () {
             event.preventDefault();
             console.log("working");
-
             function validateForm() {
                 var isValid = true;
                 $(".form-control").each(function () {
@@ -285,20 +254,16 @@
                         alert("Name is required.");
                     }
                 });
-
                 $(".question").each(function () {
                     if ($(this).val() === "") {
                         isValid = false;
                         alert("A link to a photo is required.");
                     }
                 });
-
                 return isValid;
             }
-
             if (validateForm()) {
                 // alert(validateForm());
-
                 // Creat object for holding the info entered by the user
                 var userData = {
                     name: $("#name").val(),
@@ -316,7 +281,6 @@
                         $("#q10").val()
                     ]
                 };
-
                 // Post the user data object from the survey form input to the friends API
                 $.ajax({
                     type: "POST",
@@ -326,47 +290,36 @@
                     },
                     traditional: true
                 });
-
                 // Get the friends data array to compare the user scores to each of the friend scores in the friend data array to find the best friend match
                 $.get("/api/friends", function (req, res) {
                     // alert(req);
-
                     // Initialize to 0
                     var questionDifference = 0;
                     // // Will hold all the friend scores to be compared
                     var comparedScoresArray = [];
-
                     // Iterate through the friends data array (all the stored friends)
                     for (var i = 0; i < req.length; i++) {
                         var comparedFriendScores = req[i].scores;
-                        alert(comparedFriendScores);
-
+                        // alert(comparedFriendScores);
                         // Iterate through the scores from individual friend objects
                         for (var j = 0; j < comparedFriendScores.length; j++) {
                             // The absolute value of the friend and user scores are compared and the differences are stored
                             questionDifference = Math.abs(parseInt(comparedFriendScores[j]) - parseInt(userData.scores[j]));
-                            alert(questionDifference);
+                            // alert(questionDifference);
                         }
-
                         //   // Question differences between the user and each friend being compared are pushed to an array
                         comparedScoresArray.push(questionDifference);
                         questionDifference = 0;
                     }
-
                     // // The best friend match has the minimum score difference
                     var bestMatch = req[comparedScoresArray.indexOf(Math.min.apply(null, comparedScoresArray))];
-
-                    // // Send the best matched friend to the client
-                    // res.send(bestMatch);
-
+             
                     // Add the name and photo from the response to the modal for the best match
                     $("#matchName").text(bestMatch.name);
                     $("#matchPhoto").attr("src", bestMatch.photo);
-
                     // Show the modal with the best match 
                     $("#resultModal").modal("show");
                 });
-
                 return false;
             }
         });

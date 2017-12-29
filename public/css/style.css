@@ -32,6 +32,8 @@ font-weight: bold;
 
 h3 {
 color: #4F5D75;
+margin-top: 40px;
+margin-bottom: 30px;
 }
 
 h4 {
@@ -50,15 +52,6 @@ background-color: #EF8354;
 /* FORM */
 #name, #photo {
 color: #EF8354;
-}
-
-/* FORM */
-/* HORIZONTAL RULE*/
-.rule {
-margin: 10px 0;
-border: none;
-height: 1.5px;
-background-image: linear-gradient(left, #f0f0f0, #c9bbae, #f0f0f0);
 }
 
 /* FORM */
@@ -94,8 +87,8 @@ font-size: 2.3em;
 color:  #EF8354;
 padding: 0.2em 0.5em;
 text-align: left;
-pointer-events: none;
-user-select: none;
+/* pointer-events: none; */
+/* user-select: none; */
 visibility: visible;
 }
 
@@ -142,7 +135,7 @@ font-family: 'Helvetica';
 font-size: 1.5em;
 color:  #EF8354;
 padding: 0.5em 1em;
-user-select: none;
+/* user-select: none; */
 }
 
 .sel__box__options::after {

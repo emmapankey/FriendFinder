@@ -272,55 +272,103 @@
         // });
 
         /* ===== Logic for friend matching ===== */
-        $(document).ready(function () {
-            // Capture form inputs
-            $("#submit").on("click", function () {
+        // Capture form inputs
+        $("#submit").on("click", function () {
+            event.preventDefault();
+            console.log("working");
 
-                function validateForm() {
-                    var isValid = true;
-                    $(".form-control").each(function () {
-                        if ($(this).val() === "") {
-                            isValid = false;
+            function validateForm() {
+                var isValid = true;
+                $(".form-control").each(function () {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                        alert("Name is required.");
+                    }
+                });
+
+                $(".question").each(function () {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                        alert("A link to a photo is required.");
+                    }
+                });
+
+                return isValid;
+            }
+
+            if (validateForm()) {
+                // alert(validateForm());
+
+                // Creat object for holding the info entered by the user
+                var userData = {
+                    name: $("#name").val(),
+                    photo: $("#photo").val(),
+                    scores: [
+                        $("#q1").val(),
+                        $("#q2").val(),
+                        $("#q3").val(),
+                        $("#q4").val(),
+                        $("#q5").val(),
+                        $("#q6").val(),
+                        $("#q7").val(),
+                        $("#q8").val(),
+                        $("#q9").val(),
+                        $("#q10").val()
+                    ]
+                };
+
+                // Post the user data object from the survey form input to the friends API
+                $.ajax({
+                    type: "POST",
+                    url: "/api/friends",
+                    data: userData,
+                    success: function (data) {
+                    },
+                    traditional: true
+                });
+
+                // Get the friends data array to compare the user scores to each of the friend scores in the friend data array to find the best friend match
+                $.get("/api/friends", function (req, res) {
+                    // alert(req);
+
+                    // Initialize to 0
+                    var questionDifference = 0;
+                    // // Will hold all the friend scores to be compared
+                    var comparedScoresArray = [];
+
+                    // Iterate through the friends data array (all the stored friends)
+                    for (var i = 0; i < req.length; i++) {
+                        var comparedFriendScores = req[i].scores;
+                        alert(comparedFriendScores);
+
+                        // Iterate through the scores from individual friend objects
+                        for (var j = 0; j < comparedFriendScores.length; j++) {
+                            // The absolute value of the friend and user scores are compared and the differences are stored
+                            questionDifference = Math.abs(parseInt(comparedFriendScores[j]) - parseInt(userData.scores[j]));
+                            alert(questionDifference);
                         }
-                    });
 
-                    $(".question").each(function () {
-                        if ($(this).val() === "") {
-                            isValid = false;
-                        }
-                    });
+                        //   // Question differences between the user and each friend being compared are pushed to an array
+                        comparedScoresArray.push(questionDifference);
+                        questionDifference = 0;
+                    }
 
-                    return isValid;
-                }
+                    // // The best friend match has the minimum score difference
+                    var bestMatch = req[comparedScoresArray.indexOf(Math.min.apply(null, comparedScoresArray))];
 
-                if (validateForm() == true) {
+                    // // Send the best matched friend to the client
+                    // res.send(bestMatch);
 
-                    // Creat object for holding the info entered by the user
-                    var userData = {
-                        name: $("#name").val(),
-                        photo: $("#photo").val(),
-                        scores: $("#q1").val().toString() + $("#q2").val().toString() + $("#q3").val().toString() +
-                        $("#q4").val().toString() + $("#q5").val().toString() + $("#q6").val().toString() + $("#q7").val()
-                            .toString() + $("#q8").val().toString() + $("#q9").val().toString() + $("#q10").val().toString()
+                    // Add the name and photo from the response to the modal for the best match
+                    $("#matchName").text(bestMatch.name);
+                    $("#matchPhoto").attr("src", bestMatch.photo);
 
-                    };
+                    // Show the modal with the best match 
+                    $("#resultModal").modal("show");
+                });
 
-                    var currentURL = window.location.origin;
-
-                    // Post the user data object to the friends data array at /api/friends
-                    $.post(currentURL + "/api/friends", userData, function (response) {
-
-                        // Add the name and photo from the response to the modal for the best match
-                        $("#matchName").text(response.name);
-                        $("#matchPhoto").attr("src", response.photo);
-
-                        // Show the modal with the best match 
-                        $("#resultModal").modal("show");
-                    });
-
-                    return false;
-                }
-            });
+                return false;
+            }
         });
     </script>
 

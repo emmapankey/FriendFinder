@@ -1,7 +1,7 @@
 {
   "name": "friendfinder",
   "version": "1.0.0",
-  "description": "",
+  "description": "friend matching app for finding compatible friends",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emmapankey/newFriendFinder.git"
+    "url": "git+https://github.com/emmapankey/FriendFinder.git"
   },
   "author": "emma pankey",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/emmapankey/newFriendFinder/issues"
+    "url": "https://github.com/emmapankey/FriendFinder/issues"
   },
-  "homepage": "https://github.com/emmapankey/newFriendFinder#readme",
+  "homepage": "https://github.com/emmapankey/FriendFinder#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",

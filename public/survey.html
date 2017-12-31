@@ -298,7 +298,7 @@
                 $.get("/api/friends", function (req, res) {
                     // alert(req);
                     // Initialize to 0
-                    var questionDifference = 0;
+                    var totalDifference = 0;
                     // // Will hold all the friend scores to be compared
                     var comparedScoresArray = [];
                     // Iterate through the friends data array (all the stored friends)
@@ -308,12 +308,12 @@
                         // Iterate through the scores from individual friend objects
                         for (var j = 0; j < comparedFriendScores.length; j++) {
                             // The absolute value of the friend and user scores are compared and the differences are stored
-                            questionDifference = Math.abs(parseInt(comparedFriendScores[j]) - parseInt(userData.scores[j]));
+                            totalDifference = Math.abs(parseInt(comparedFriendScores[j]) - parseInt(userData.scores[j]));
                             // alert(questionDifference);
                         }
                         //   // Question differences between the user and each friend being compared are pushed to an array
-                        comparedScoresArray.push(questionDifference);
-                        questionDifference = 0;
+                        comparedScoresArray.push(totalDifference);
+                        totalDifference = 0;
                     }
                     // // The best friend match has the minimum score difference
                     var bestMatch = req[comparedScoresArray.indexOf(Math.min.apply(null, comparedScoresArray))];

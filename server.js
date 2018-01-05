@@ -1,6 +1,7 @@
 // NPM package dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
+var path = require("path");
 
 // Create express app instance for express server configuration
 var app = express();
@@ -11,6 +12,9 @@ var PORT = process.env.PORT || 3000;
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Allow the assets folder to be used for static content
+app.use(express.static("public"));
 
 // Point the server to the route files
 require("./routing/apiRoutes")(app);

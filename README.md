@@ -38,6 +38,7 @@ https://github.com/emmapankey/FriendFinder.git
 
 #### Node.js and npm
 Go to the Node.js site: https://nodejs.org/en. Click the download button, and run through the installation file.
+When you install node.js, npm is automatically installed.
 To check if you have Node.js installed, run this command in your terminal:
 ```
 node -v
@@ -47,7 +48,7 @@ To confirm that you have npm installed you can run this command in your terminal
 npm -v
 ```
 
-### Installing Node Packages
+#### Installing Node Packages
 
 
 In the terminal execute the following commands:

@@ -1,6 +1,6 @@
 # FriendFinder
 
-This app can be found at https://limitless-caverns-57538.herokuapp.com/
+This app can be found at https://friendfinder-57538.herokuapp.com/
 
 ## Friend Matching Application Using a Compatibility Survey
 
